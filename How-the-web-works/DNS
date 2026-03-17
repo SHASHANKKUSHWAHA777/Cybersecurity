@@ -1,0 +1,245 @@
+Task1-intro
+ DNS - Domain name system
+
+ jaise agar comp ko internet ke andar kisi device ya system se communicate krna h to baar baar humlog complex numbers yaad nhi rakh skte , yaha complex num means IP naddress ki baat ho rhi h 
+ like hume 192.68.1.1 se baat karni h to DNS use ek name , for eg tryhackme , name dedeta h jisse communication me asani hoti h
+ in short DNS jo hota h wo IP address ko name dedeta h taki communication me asani ho
+
+
+
+
+
+
+
+ Task2-Domain Heirarchy
+ refer to Domainheirarchy.img for clear understandng
+
+ . = root Domain
+ .com,.edu,.gov,.mil = Top level domaain(TLD)
+ MIT.edu , here MIT IS Second level Domain
+ NASA.gov , here NASA is second level Domain
+ Google.com , here google is second level Domain
+ Army.mil , here army is second level Domain
+
+ so we have 3 domains in Heirarchy
+ 1) root domain
+ 2) top level domain
+ 3) second level domain
+
+ 2) TLD is further devided into two parts 
+ 1- gTLD = generic top level domain , like its obvious that .com is for commercial purpose and .edu is for educational purpose
+ 2- ccTLD = Country code top level domain , like co.uk etc
+  
+ 3) Taking tryhackme.com as an example, the .com part is the TLD, and tryhackme is the Second Level Domain.
+ When registering a domain name, the second-level domain is limited to 63 characters + the TLD and can only use a-z 0-9 and hyphens (cannot start or end with hyphens or have consecutive hyphens).
+
+ NOW COMES SUBDOMAINS
+ these are used before or leftside of second level domains
+ for eg  -  admin.tryhackme.com   => here admin is SUBDOMAIN
+ there is not limit of number of subdomains that can be used
+ A subdomain name has the same creation restrictions as a Second-Level Domain, being limited to 63 characters and can only use a-z 0-9 and hyphens (cannot start or end with hyphens or have consecutive hyphens). You can use multiple subdomains split with periods to create longer names, such as jupiter.servers.tryhackme.com. But the length must be kept to 253 characters or less
+
+
+
+
+
+
+
+
+
+
+
+ Task3-Record types
+
+ DNS Record Types
+ 
+
+ DNS isn't just for websites though, and multiple types of DNS record exist. We'll go over some of the most common ones that you're likely to come across.
+
+ 1) A record -: its for IPv4 addresses
+
+ 2) AAAA record -: its for IPv6 addresses
+
+ 3) CNAME record -: jaise tryhaackme ke online store ka subdomain hai store.tryhackme.com , to CNAME record ise store.shopify.com se connect ya map krega 
+
+ 4) MX record -: MX = Mail Exchange Record
+
+Ye DNS ka record hota hai jo batata hai:
+
+ "Is domain ki email kaha par deliver karni hai?"
+
+Matlab agar koi tumhe mail bheje:
+
+koi@tumhradomain.com
+
+
+To MX record decide karta hai ki ye mail kaunse mail server ko milegi.
+
+ MX Record me kya hota hai?
+
+MX record me 2 important cheeze hoti hain:
+
+1️- Priority
+
+Chhota number = high priority
+Agar pahla server down ho jaye, next priority wale server par mail chalegi.
+
+2️- Mail Server Hostname
+
+Jaise:
+
+ASPMX.L.GOOGLE.COM
+ALT1.ASPMX.L.GOOGLE.COM
+mail.protonmail.ch
+smtp.zoho.in
+
+# Simple Example
+
+Agar tum Gmail Workspace use kar rahe ho:
+
+Priority | Mail Server
+10         ASPMX.L.GOOGLE.COM
+20         ALT1.ASPMX.L.GOOGLE.COM
+30         ALT2.ASPMX.L.GOOGLE.COM
+
+
+Iska matlab:
+
+Pehle mail Google ke main server par jaye
+
+Agar down ho, 2nd
+
+Phir 3rd
+
+4) TXT record
+TXT = Text Record
+
+Ye DNS ka ek record hota hai jisme domain owner kuch bhi text store kar sakta hai.
+Mostly ye record verification aur security ke liye use hota hai.
+
+Matlab:
+ “Domain ke DNS me yeh text save kar do, jisse duniya confirm kar sake ki domain sach me tumhara hai.”
+TXT Record = DNS me text store karna
+Zyada tar use hota hai:
+
+Domain verify karne ke liye
+
+Email security (SPF, DKIM, DMARC) ke liye
+
+
+
+
+
+
+
+
+
+Task4- Making a request 
+
+what happens when u make a dns request
+
+ 1. Sabse pehle Local Cache check hota hai
+
+Tumhare computer/laptop ne agar ye domain recently open kiya ho
+→ result local cache me mil jayega
+→ DNS query yahi khatam.
+
+ 2. Recursive DNS Server (usually ISP ka)
+
+Agar local cache me nahi mila:
+
+Tera computer apne Recursive DNS Server se poochta hai (ye mostly ISP ka hota hai — Jio, Airtel, BSNL).
+
+Yaha bhi ek cache hoti hai.
+
+Agar waha mil gaya → direct client ko de deta.
+
+Popular sites (Google, YouTube, Insta) ka result yahi mil jata hai.
+
+Agar yaha bhi result nahi mila, tab actual DNS travel start hota hai.
+
+ Ab shuru hoti hai DNS ki Journey
+ 3. Root DNS Servers
+
+Recursive server sabse pehle Root Servers ko query karta hai.
+
+Root servers ke paas domain ka exact answer nahi hota.
+Unka kaam sirf yeh batana hota:
+
+ “Is TLD (.com, .net, .in, .org) ka server yaha hai.”
+
+Example:
+“tryhackme.com” → ".com" TLD server ki taraf bhej diya jaayega.
+
+ 4. TLD (Top-Level Domain) Servers
+
+Ab request jaati hai TLD server ke paas:
+
+For example: .com TLD server
+
+TLD ke paas pata hota hai ki is domain ki authoritative nameserver kaha hai.
+
+For tryhackme.com →
+It will say: authoritative DNS =
+
+kip.ns.cloudflare.com
+
+uma.ns.cloudflare.com
+
+ 5. Authoritative DNS Server (Nameserver)
+
+Yahi REAL boss hota hai.
+
+Yaha original DNS records stored hote hain
+(A, MX, CNAME, TXT, etc.)
+
+Yahi final answer deta hai:
+
+Example:
+
+tryhackme.com → 104.26.3.2
+
+ 6. Recursive DNS Server Result Save Karta Hai (Caching)
+
+Record milne ke baad:
+
+Recursive server result ko cache me store karta hai
+
+Fir ye result tumhare computer ko bhej deta hai
+
+Tumhara computer bhi is result ko TTL time tak store rakhta hai
+
+TTL (Time to Live)
+
+DNS record kitni der tak cache me store rahega —
+ye TTL value (seconds) se decide hota.
+
+Example:
+
+TTL = 300 → 5 minutes tak record reuse hoga
+
+TTL = 86400 → 1 day
+
+Isse baar-baar DNS lookup karne ki zarurat nahi padti → Internet fast lagta hai.
+
+Short Hinglish Summary
+
+Computer → Recursive DNS → Root Server → TLD Server → Authoritative Server → Answer → Cache
+
+
+
+
+
+
+
+
+Task6- Practical
+do on thm
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
