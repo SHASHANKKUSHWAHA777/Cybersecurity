@@ -1,0 +1,21 @@
+Task1-intro
+hash value bas ek fixeed size/length ki string hai jisko ek hash function compute karta hai
+hash fnk bas ek input value ko andar leta hai aur execute krke ek fixed length ki hash value deta h
+
+
+
+
+
+
+Task2-Hash Funtions
+hash fnk are different from encryption as there is no key so its practically impossible to go back from output to input
+a hash fnk creates digest or summary of that data,its hard to predict an output for a input and vice versa 
+any slight change in input data even a bit , can change the whole output
+The letter T is 54 in hexadecimal, i.e., 01010100 in binary.
+The letter U is 55 in hexadecimal, i.e., 01010101 in binary.
+
+hash collision is a type of problem or kinf of vulnerability in hashing that two different inputs may have same outputs as outputs are limited.
+As a numeric example, if a hash function produces a 4-bit hash value, we only have 16 different hash values. The total number of possible hash values is 2number_of_bits = 24 = 16. The probability of a collision is relatively very high.
+The pigeonhole effect states that the number of items (pigeons) is more than the number of containers (pigeonholes); some containers must hold more than one item. In other words, in this context, there are a fixed number of different output values for the hash function, but you can give it any size input. As there are more inputs than outputs, some inputs must inevitably give the same output. If you have 21 pigeons and 16 pigeonholes, some of the pigeons are going to share the pigeonholes. Consequently, collisions are unavoidable. However, a good hash function ensures that the probability of a collision is negligible.
+
+MD5 and SHA1 have been attacked multiple times due to hash collisiions and are now considered unsafe 
