@@ -1,0 +1,25 @@
+viewing page source
+we can view page source of a website or webapp to view their
+html code and if their html contains the source framework
+used in their website , we can perform checks on that framework
+if it is outdated and vulnerable 
+
+
+developer tools
+1-inspector - ye web ka live repr dikhata hai and we can also edit and interact with the web pgs although the changes would be temporary
+
+sometimes in pages like "content only for premium user" , the creator of the website often sets up metaphorical walls
+like they are paywalls but they are not , so the content can be easily seen behind that metaphorical wall
+by inspecting the div block and changing the display:xyz , to display:none , the change is temporary , but the premium content is now visible
+
+2-debugger - used for debugging js and making work something which aint working , good for developers for trying and creating new features temporarily and if good , implement it in the real code.
+in some browsers it is also known as sources . this dev tool for pentesters iused for digging deep in the js code
+
+sometimes , the whole js code is obfuscated making it difficult to dive deep and read , then comes pretty print in picture which adds kindof identation to js making the code readable
+Breakpoints is a very important and useful feature of debugger , applying breakpoint by clicking on the line number of the code making the node blue , means that that line on which breakpoint is applied
+is no longer being executed , using this developers and pentesters and perform hit and trial on js functionality
+
+3-network - used to keep track of any external req made by the webpage
+With the network tab open, try filling in the contact form and pressing the Send Message button. You'll notice an event in the network tab, and this is the form being submitted in the background using a method called 
+AJAX. AJAX is a method for sending and receiving network data in a web application background without interfering by changing the current web page.
+
