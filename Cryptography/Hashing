@@ -19,3 +19,50 @@ As a numeric example, if a hash function produces a 4-bit hash value, we only ha
 The pigeonhole effect states that the number of items (pigeons) is more than the number of containers (pigeonholes); some containers must hold more than one item. In other words, in this context, there are a fixed number of different output values for the hash function, but you can give it any size input. As there are more inputs than outputs, some inputs must inevitably give the same output. If you have 21 pigeons and 16 pigeonholes, some of the pigeons are going to share the pigeonholes. Consequently, collisions are unavoidable. However, a good hash function ensures that the probability of a collision is negligible.
 
 MD5 and SHA1 have been attacked multiple times due to hash collisiions and are now considered unsafe 
+
+
+Task3-insecure password storage for authentication
+
+three insecure practices when it comes to passwords:
+
+1) Storing passwords in plaintext
+2) Storing passwords using a deprecated encryption
+3) Storing passwords using an insecure hashing algorithm
+
+1) ek company thi rockyou vo apne db me pass ko plaintext me store krti thi to jab us company ka db web hack hua to saare pass leak hogye jisse mtlb rockyou.txt se jaante h jo ki commonly used pass file h
+
+2) Adobe me databreach hua tha kyuki vo insecure and outdated encryption technique ko use krre the
+
+3) LinkedIn also suffered a data breach in 2012. LinkedIn used an insecure hashing algorithm, the SHA-1, to store user passwords. Furthermore, no password salting was used. Password salting refers to adding a salt, i.e., a random value, to the password before it is hashed.
+
+EXTRA SAFETY CHIYE TO PASSWORD SALTING KRKE HASHING LAGADO
+1-shadow ek root user file hai jise sirf root user dekh skte h 
+sirf shadow file ke baare me ham "man 5 shadow" se jaan skte hai
+2-
+maanlo ek bahut bada databvase ya txt file hai jisme croro passwords laakho passwords ya kuch imp cheeze hai 
+ab usme tume shuru ki 20 ya x lines dekhni hai to use command "head  -n 20 rockyou.txt" 
+agar niche se 20 dekhni h to "tail -n 20 rockyou.txt"
+
+grep ka kaam hota hai:
+“file me jo line search karni hai, woh dhoond kar dikhana.”
+
+Basic search
+grep "password" rockyou.txt
+
+
+rockyou.txt me jahan-jahan “password” likha hai, woh lines print karega.
+
+agar puri database yatxt file me kitni total entries ya luines h ye count krna h to use "wc -1 rockyou.txt" this cmd counts lines
+
+
+
+
+
+
+
+
+Task4-Using hashing for secure password storage
+
+bas hashing me vahi limited output 
+are isme basically kai saare tools hote hn jinse hum hash value se uska plaintext nikaal sakte hai
+A Rainbow Table is a lookup table of hashes to plaintexts, so you can quickly find out what password a user had just from the hash. A rainbow table trades the time to crack a hash for hard disk space, but it takes time to create.
