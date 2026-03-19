@@ -66,3 +66,52 @@ Task4-Using hashing for secure password storage
 bas hashing me vahi limited output 
 are isme basically kai saare tools hote hn jinse hum hash value se uska plaintext nikaal sakte hai
 A Rainbow Table is a lookup table of hashes to plaintexts, so you can quickly find out what password a user had just from the hash. A rainbow table trades the time to crack a hash for hard disk space, but it takes time to create.
+
+
+
+
+
+
+Task5-Recongnising password hashes
+kuch chize hoti hai jo shuru me hoti hai sentence ke jinse hum pehchan sakte hai ye hash konsa hai 
+for example
+Prefix	Algorithm
+$y$	yescrypt is a scalable hashing scheme and is the default and recommended choice in new systems
+$gy$	gost-yescrypt uses the GOST R 34.11-2012 hash function and the yescrypt hashing method
+$7$	scrypt is a password-based key derivation function
+$2b$, $2y$, $2a$, $2x$	bcrypt is a hash based on the Blowfish block cipher originally developed for OpenBSD but supported on a recent version of FreeBSD, NetBSD, Solaris 10 and newer, and several Linux distributions
+$6$	sha512crypt is a hash based on SHA-2 with 512-bit output originally developed for GNU libc and commonly used on (older) Linux systems
+$md5	SunMD5 is a hash based on the MD5 algorithm originally developed for Solaris
+$1$	md5crypt is a hash based on the MD5 algorithm originally developed for FreeBSD
+
+linux me eknshadow fikle thi lab me jisme is format me chize thi
+$prefix$options$salt$hash
+
+MS Windows Passwords
+MS Windows passwords are hashed using NTLM, a variant of MD4. They’re visually identical to MD4 and MD5 hashes, so it’s very important to use context to determine the hash type.
+
+On MS Windows, password hashes are stored in the SAM (Security Accounts Manager). MS Windows tries to prevent normal users from dumping them, but tools like mimikatz exist to circumvent MS Windows security. Notably, the hashes found there are split into NT hashes and LM hashes.
+
+
+
+
+
+
+
+
+
+Task6-Password cracking
+
+isme basically hum rockyou.txt ko jihntheripper and hashcat aise tools me lagake bruteforce krdete hai jisse password crack ho jaat ah aur hume mil jaata h
+
+hashcat me ye format rhta hai
+
+hashcat -m attack mode - a attack type hash.txt /usr/share/wordlists/rockyou.txt
+
+attack mode is a number of hash type
+Eg
+1400 used for Sha256
+Attack type means
+0 for line by line
+1,3,6,7 etc etc for diff diff attack types such as bruteforce etc 
+hashcat -m 0 -a 0 hash4.txt /usr/share/wordlists/rockyou.txt
