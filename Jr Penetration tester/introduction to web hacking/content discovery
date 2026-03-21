@@ -1,0 +1,97 @@
+content are of many types , photos , videos , links , pages etc etc
+we can discover content using 3 ways
+manually , automated and OSINT
+
+#1 manually
+1-robots.txt - a route of txt file which tells which page or link or route this website is allows to access or disallows to access
+
+2-favicon - images that sometimes comes with the framework used in a web page or a website , doing osint on a or searching it in the owasp favicon database can reveal the framework and its version using in the website , and if the framework used is vuln or exploitable or outdated , game over.
+
+3-Sitemap.xml -
+Unlike the robots.txt file, which restricts what search engine crawlers can look at, the sitemap.xml file gives a list of every file the website owner wishes to be listed on a search engine. These can sometimes contain areas of the website that are a bit more difficult to navigate to or even list some old webpages that the current site no longer uses but are still working behind the scenes.
+ 
+4-HTTP Headers -
+When we make requests to the web server, the server returns various HTTP headers. These headers can sometimes contain useful information such as the webserver software and possibly the programming/scripting language in use. In the below example, we can see the webserver is NGINX version 1.18.0 and runs PHP version 7.4.3. Using this information, we could find vulnerable versions of software being used. Try running the below curl command against the web server, where the -v switch enables verbose mode, which will output the headers (there might be something interesting!).
+
+5- OSINT- the following things comes under OSINT
+
+1-
+There are also external resources available that can help in discovering information about your target website; these resources are often referred to as OSINT or (Open-Source Intelligence) as they're freely available tools that collect information:
+
+Google Hacking / Dorking
+
+Google hacking / Dorking utilizes Google's advanced search engine features, which allow you to pick out custom content. You can, for instance, pick out results from a certain domain name using the site: filter, for example (site:tryhackme.com) you can then match this up with certain search terms, say, for example, the word admin (site:tryhackme.com admin) this then would only return results from the tryhackme.com website which contain the word admin in its content. You can combine multiple filters as well. Here is an example of more filters you can use:
+
+Filter
+Example
+Description
+site
+site:tryhackme.com
+returns results only from the specified website address
+inurl
+inurl:admin
+returns results that have the specified word in the URL
+filetype
+filetype:pdf
+returns results which are a particular file extension
+intitle
+intitle:admin
+returns results that contain the specified word in the title
+
+More information about google hacking can be found here: https://en.wikipedia.org/wiki/Google_hacking
+
+2-Wappalyzer
+
+Wappalyzer (https://www.wappalyzer.com/) is an online tool and browser extension that helps identify what technologies a website uses, such as frameworks, Content Management Systems (CMS), payment processors and much more, and it can even find version numbers as well.
+
+3-Wayback Machine
+
+The Wayback Machine (https://archive.org/web/) is a historical archive of websites that dates back to the late 90s. You can search a domain name, and it will show you all the times the service scraped the web page and saved the contents. This service can help uncover old pages that may still be active on the current website.
+
+4-GitHub
+
+To understand GitHub, you first need to understand Git. Git is a version control system that tracks changes to files in a project. Working in a team is easier because you can see what each team member is editing and what changes they made to files. When users have finished making their changes, they commit them with a message and then push them back to a central location (repository) for the other users to then pull those changes to their local machines. GitHub is a hosted version of Git on the internet. Repositories can either be set to public or private and have various access controls. You can use GitHub's search feature to look for company names or website names to try and locate repositories belonging to your target. Once discovered, you may have access to source code, passwords or other content that you hadn't yet found.
+
+5-S3 Buckets
+
+S3 Buckets are a storage service provided by Amazon AWS, allowing people to save files and even static website content in the cloud accessible over HTTP and HTTPS. The owner of the files can set access permissions to either make files public, private and even writable. Sometimes these access permissions are incorrectly set and inadvertently allow access to files that shouldn't be available to the public. The format of the S3 buckets is http(s)://{name}.s3.amazonaws.com where {name} is decided by the owner, such as tryhackme-assets.s3.amazonaws.com. S3 buckets can be discovered in many ways, such as finding the URLs in the website's page source, GitHub repositories, or even automating the process. One common automation method is by using the company name followed by common terms such as {name}-assets, {name}-www, {name}-public, {name}-private, etc.
+
+
+
+
+
+2# automated discovery
+What is Automated Discovery?
+
+Automated discovery is the process of using tools to discover content rather than doing it manually. This process is automated as it usually contains hundreds, thousands or even millions of requests to a web server. These requests check whether a file or directory exists on a website, giving us access to resources we didn't previously know existed. This process is made possible by using a resource called wordlists.
+
+
+
+What are wordlists?
+
+Wordlists are just text files that contain a long list of commonly used words; they can cover many different use cases. For example, a password wordlist would include the most frequently used passwords, whereas we're looking for content in our case, so we'd require a list containing the most commonly used directory and file names. An excellent resource for wordlists that is preinstalled on the THM AttackBox is https://github.com/danielmiessler/SecLists which Daniel Miessler curates.
+
+
+
+Automation Tools
+
+Although there are many different content discovery tools available, all with their features and flaws, we're going to cover three which are preinstalled on our attack box, ffuf, dirb and gobuster.
+
+
+
+On the AttackBox execute the following three commands, targeting the Acme IT Support website and see what results you get.
+
+
+
+Using ffuf:
+
+ffuf
+user@machine$ ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt -u http://10.49.183.141/FUZZ
+Using dirb:
+
+dirb
+user@machine$ dirb http://10.49.183.141/ /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt
+Using Gobuster:
+
+gobuster
+user@machine$ gobuster dir --url http://10.49.183.141/ -w /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt
