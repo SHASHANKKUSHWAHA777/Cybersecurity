@@ -115,3 +115,29 @@ Attack type means
 0 for line by line
 1,3,6,7 etc etc for diff diff attack types such as bruteforce etc 
 hashcat -m 0 -a 0 hash4.txt /usr/share/wordlists/rockyou.txt
+
+
+
+
+
+
+Task7-Hashing for integrity checking
+
+ab bhai hashing ko humlog is trh bhi use kr skte haui ki agar humnekuch input diya ayur uska hash value me koi change dikha phle wali hash value se to mtlb us data me chhed chaad hui hai aur vo compromised ho chuki hai , agar dono hash val pyurani wali aur abhi abhi checkhed wali same h to data safe hai
+
+HMAC (Keyed-Hash Message Authentication Code) is a type of message authentication code (MAC) that uses a cryptographic hash function in combination with a secret key to verify the authenticity and integrity of data.
+An HMAC can be used to ensure that the person who created the HMAC is who they say they are, i.e., authenticity is confirmed; moreover, it proves that the message hasn’t been modified or corrupted, i.e., integrity is maintained. This is achieved through the use of a secret key to prove authenticity and a hashing algorithm to produce a hash and prove integrity.
+
+The following steps give you a fair idea of how HMAC works.
+
+The secret key is padded to the block size of the hash function.
+The padded key is XORed with a constant (usually a block of zeros or ones).
+The message is hashed using the hash function with the XORed key.
+The result from Step 3 is then hashed again with the same hash function but using the padded key XORed with another constant.
+The final output is the HMAC value, typically a fixed-size string.
+The illustration below should clarify the above steps.
+Technically speaking, the HMAC function is calculated using the following expression:
+
+HMAC(K,M) = H((K⊕opad)||H((K⊕ipad)||M))
+
+Note that M and K represent the message and the key, respectively.
