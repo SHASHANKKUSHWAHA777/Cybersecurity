@@ -1,0 +1,5 @@
+IDOR - in this we can edit the id and resend request thru network tab , if 200ok , we got access
+to other account id ,which is a vuln
+we can also edit id in req param in url bar
+
+sometimes , id is encryted so we've to decrypt it using online tools and then change the id , then back encrypt it and put the encrypted id in the param and send req
