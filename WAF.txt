@@ -1,0 +1,10 @@
+firewall 2 typ
+1. stateless
+2. statefull
+
+stateless doesnt keep records , like no memory , if flag set to ack , stateless would accept and execute or allow to enter assuming the packet is a part of some ongoing conversation
+statefull started keeping records too apart from tcp udp connections records , it would only allow the packet set of ACK if it were a part of any ongoing conversation , like it had memory
+
+statefull firewall 3 types
+1. application level gateway - it stops the ongoing traffic and initiate the new one by mimicking it , by doing so , it can detect any harmful hidden texts or codes . it says that to understand the packets or traffic , one must speak its language.
+2. deep packet inspection (DPI) -
