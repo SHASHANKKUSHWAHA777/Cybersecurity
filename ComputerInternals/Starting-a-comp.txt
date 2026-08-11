@@ -1,0 +1,16 @@
+1. pressing on the power button -> a signal is sent to to PSU to allow power flow
+
+2. firmware starts . firmware allows all the components to start up and the central system that manages all this is called UEFI (Unified extensible Firmware Interface) . 
+(Bios does the same as uefi , but is now replaced by uefi)
+BIOS is different from UEFI . UEFI has secure boot and BIOS doesnt . also BIOS os older than UEFI .
+BIOS and UEFI both are firmware standards.
+
+3. UEFI then does the Power-On self test which is just a routine checkup to check if all the components are working properly.
+a Post signal is sent to al the components by UEFI , if a signal is not received back , then there will be some alarm signals.
+
+4. Now tis time for electing Boot device . UEFI holds a priority list for which device to boot first .
+like if u have two os on boot , windows and linux , then whoch will be booted first is in the priority list whic the UEFi holds.
+
+5. now on the selected device , the bootloader is initiated .
+the bootloader the tranfers the operating system fromt the selected boot device to RAM.
+Once the OS is transferred , the UEFI gives control over the different components to the OS.
