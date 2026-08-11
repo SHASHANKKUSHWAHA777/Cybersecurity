@@ -1,0 +1,14 @@
+Types of computer
+1. Laptop - It has a screen and a keyboard . Portable computing everyday
+2. Desktop - screen and keyboard . sustained performance at a fixed location.
+3. Workstation - Screen and keyboard . Precision and reliability for professional tasks.
+4. Server - No Screen and no keyboard . Providing services to many users over a network
+
+Now coming to small computers that are powerful and are handy we can fit inside our pockets
+1. Smartphone - pocketsized comp for battery and connectivity . eg iphone and android
+2. Tablet - Touch comp with large screen . eg ipad , drawing tablet 
+3. IoT device - Network connected device for a single purpose . eg thermostat , smart doorbell , fitness tracker etc
+4. Embedded Computer - Computer built into another device . eg coffee maker controller , automatic door sensor
+
+the mian diff bw ito and embedded computer is that iot connectws to network and report data and can receive commands . 
+Embedded comp might not reconnect to anything . they do theri job inside the machine without anyone know they exist.
