@@ -1,0 +1,62 @@
+`linenum` usually refers to a Linux security auditing script called Linenum. It’s a popular privilege escalation enumeration tool used by penetration testers and system administrators to quickly check for misconfigurations, weak permissions, and potential escalation paths on a Linux system.
+
+What Linenum Does
+- Scans the system for critical files with insecure permissions (like `/etc/shadow`).
+- Lists cron jobs and their owners.
+- Checks for **SUID/SGID binaries** that could be exploited.
+- Reports world-writable files and directories.
+- Displays network info, processes, and environment variables.
+- Helps identify potential privilege escalation vectors.
+
+How to Use Linenum
+1. Download it (commonly from GitHub):
+   bash
+   wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+   
+2. Make it executable:
+   bash
+   chmod +x LinEnum.sh
+   
+3. Run it:
+   bash
+   ./LinEnum.sh
+   
+   or with more detail:
+   bash
+   ./LinEnum.sh -t
+   
+
+Important Note
+- Linenum is a post-exploitation tool: it’s often used after gaining access to a system to see what can be leveraged for privilege escalation.
+- On your own systems, it’s a great hardening check to spot weak configurations before attackers do.
+
+---
+
+"""
+Then we ssh into our lab machine and after that we check hostname using hostname command .
+we also check no. of users on active on that machine thru "cat /etc/passwd"
+we then check available shells thru "cat /etc/shells"
+we then check a file that is set to run every 5 minutes through cronjobs on crontab using "cat /etc/crontab"
+we then check passwd file if it allows any user to write or change it thru "ls -la /etc/passwd" .
+"""
+permissions : 
+Example: -r--------
+- → Regular file (not a directory, link, etc.)
+
+r → Owner (user) has read permission
+
+- → Owner does not have write permission
+
+- → Owner does not have execute permission
+
+--- → Group has no permissions (read/write/execute all denied)
+
+--- → Others (world) have no permissions
+
+So, -r-------- means:
+
+It’s a regular file
+
+Only the owner can read it
+
+No one (not even group or others) can write or execute it
