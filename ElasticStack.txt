@@ -1,0 +1,12 @@
+so i just earned that ELK(ElasticSearch , Logstash , Kibana) is a data storage and visualisation platform that helps you to search , store , analyse and visualise data in real time
+
+1. BEATS -host based agent or data shippers, they work end to end as a delivery guy from an endpoint to elastic search where the data is stored that is brough by BEATS from an endpoint.
+2. Elastic Search - It is a full-text search and analytics engine for JSON-formatted documents. It stores, analyzes, and correlates data and supports a RESTful API for interacting with it.
+3. Logstash - Its a data processing engine and filters and normalises the data and then sends it to Kibana or any Listening port.
+Logstash configuration file is divided into three parts, as shown below.
+
+The Input part is where the user defines the source from which the data is being ingested.
+The Filter part is where the user specifies the filter options to normalize the log ingested above. 
+The Output part is where the user wants the filtered data to be sent. It can be a listening port, Kibana Interface, Elasticsearch database, or file. 
+
+4. Kibana - web based visualisation engine that works with elastic search to visualise , analyse and investigate data streams in real time . they alow users to create mutiple visualisations and dashboards for proper monitoring .
