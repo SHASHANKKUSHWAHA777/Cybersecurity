@@ -10,3 +10,10 @@ The Filter part is where the user specifies the filter options to normalize the 
 The Output part is where the user wants the filtered data to be sent. It can be a listening port, Kibana Interface, Elasticsearch database, or file. 
 
 4. Kibana - web based visualisation engine that works with elastic search to visualise , analyse and investigate data streams in real time . they alow users to create mutiple visualisations and dashboards for proper monitoring .
+
+this is how these all 4 work together
+
+Beats --------------> Logstash ---------------------> Elastic Search ---------------------> Kibana
+(Data                 (take input from                (Index and Stores data)               (Visualization and 
+Collection             Beats , filters it                                                    Analysis)
+Agent)                 and gives output)
