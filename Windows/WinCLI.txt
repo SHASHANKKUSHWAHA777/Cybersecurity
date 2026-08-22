@@ -1,0 +1,22 @@
+ipconfig - You can check your network information using ipconfig. It shows our IP address, subnet mask, and default gateway.
+You can also ipconfig /all for more information about your network configuration. We can view our DNS servers and confirm that DHCP is enabled.
+
+
+Network Troubleshooting
+One common troubleshooting task is checking if the server can access a particular server on the Internet. The command syntax is ping target_name. Inspired by ping-pong, we send a specific ICMP packet and listen for a response.
+If a response is received, we know that we can reach the target and that the target can reach us.
+
+tracert - Another valuable tool for troubleshooting is tracert, which stands for trace route. The command tracert target_name traces the network route traversed to reach the target. 
+Without getting into more details, it expects the routers on the path to notify us if they drop a packet because its time-to-live (TTL) has reached zero.
+
+One networking command worth knowing is nslookup. It looks up a host or domain and returns its IP address.
+
+The final networking command is netstat. This command displays current network connections and listening ports. A basic netstat command with no arguments will show you established connections.
+
+If you are curious about the other options, you can run netstat -h, where -h displays the help page. We opted for the following options:
+
+-a displays all established connections and listening ports
+-b shows the program associated with each listening port and established connection
+-o reveals the process ID (PID) associated with the connection
+-n uses a numerical form for addresses and port numbers
+We combine these four options and execute the netstat -abon command. It is clear now that the executable sshd.exe is responsible for listening for incoming connections on port 22. We can also see the process ID (PID) associated with each connection.
