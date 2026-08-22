@@ -1,0 +1,12 @@
+Microsoft Defender SmartScreen.
+
+Microsoft Defender SmartScreen protects against phishing or malware websites and applications, and the downloading of potentially malicious files.
+
+Windows Exploit Protection : 
+CFG (Control Flow Guard): On → malicious indirect control-flow changes ko mitigate karta hai.
+DEP (Data Execution Prevention): On → memory ke data-only areas se code execute hone ko prevent karta hai.
+Mandatory ASLR: Off by default → har program par forcefully ASLR apply nahi ho raha; Windows default behavior use kar raha hai.
+Bottom-up ASLR → memory allocations ko randomize karta hai, jisse predictable memory addresses harder ho jaate hain.
+
+ASLR - Address layout randomisation
+Windows/Linux program ke memory addresses ko randomize karta hai, taaki attacker ko pehle se pata na ho ki code/data exactly memory ke kis address par milega.
