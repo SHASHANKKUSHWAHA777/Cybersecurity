@@ -2,4 +2,8 @@ Device security - security services that comes embedded in your device
 
 1. Core Isolation - provides kernel level security 
     -- Memory Integrity - Prevents attacks from inserting malicious code into high-security processes.
-apart from memory isolation , it also provides Kernel mode hardware enforces stack protection , memory protection , vulnerable drivers blocklist and local security authority protection.
+apart from memory integrity , core isolation also provides Kernel mode hardware enforces stack protection , memory protection , vulnerable drivers blocklist and local security authority protection.
+
+2. Security processor - Also known as TPM (Trusted platform Module) , provides additional encryption for our devices.
+
+TPM - Trusted Platform Module (TPM) technology is designed to provide hardware-based, security-related functions. A TPM chip is a secure crypto-processor that is designed to carry out cryptographic operations. The chip includes multiple physical security mechanisms to make it tamper-resistant, and malicious software is unable to tamper with the security functions of the TPM
