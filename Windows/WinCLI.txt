@@ -20,3 +20,13 @@ If you are curious about the other options, you can run netstat -h, where -h dis
 -o reveals the process ID (PID) associated with the connection
 -n uses a numerical form for addresses and port numbers
 We combine these four options and execute the netstat -abon command. It is clear now that the executable sshd.exe is responsible for listening for incoming connections on port 22. We can also see the process ID (PID) associated with each connection.
+
+Additional commands :
+tasklist - to view running processes like task manager . we can kill idle processes through their PID(process id) and taskkill command . for eg if we wanna kill process with id 45 , then use command : taskkill /PID 45
+if wanna search a task by name then : tasklist /FI "imagename eq notepad.exe"
+
+to view a text file use type command.
+
+chkdsk: checks the file system and disk volumes for errors and bad sectors.
+driverquery: displays a list of installed device drivers.
+sfc /scannow: scans system files for corruption and repairs them if possible.
