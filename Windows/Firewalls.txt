@@ -1,0 +1,6 @@
+here would be just the key and basic but imp info about window firewalls
+
+windows offers 3 types of firewalls
+ 1. Domain - for the network where the hosts can authenticate the domain controller
+ 2. Private - user-defined profile and used for private networks
+ 3. Public - default firewall used to communicate in public networks like wifi hostpots at coffee shops , airports etc.
